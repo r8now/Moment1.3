@@ -1,0 +1,53 @@
+﻿@page "/converter"
+
+<h1>Converter</h1>
+<div>
+
+
+
+    <h2>Convert meter to feet</h2>
+    <!--KOnvertera meter till feet, texten uppdateras samtidigt som du skriver i rutan-->
+    <p>@meter meter is @feet.ToString("F") feet </p>
+    <!--form-->
+    <label for="number">Fill in meter:</label>
+    <input  @bind:event="oninput" type="number" id="meter" @bind="meter" />
+    <button class="btn btn-primary" @onclick="Count">convert</button>
+    <!--form-->
+
+
+
+
+    @code {
+        //properties
+        public double meter;
+        private double feet;
+
+
+        private void Count()
+        {
+            //convert feet to meter
+            feet = meter * 3.3;
+        }
+    }
+</div>
+<div>
+    <h2>Convert km/h to MPH</h2>
+    <p>@km Km/H is @mph MPH </p>
+    <!--form-->
+    <label for="km">Fill in km/h:</label>
+    <input @bind:event="oninput" type="number" id="km" @bind="km" />
+    <button  @onclick="Countkm">convert</button>
+     <!--form-->
+    @code {
+        //properties
+        public double km;
+        private double mph;
+
+
+        private void Countkm()
+        {
+            //count km/H to m/h
+           mph = km * 1.6;
+         }
+    }
+</div>
