@@ -1,13 +1,13 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
 
-<PageTitle>Weather forecast</PageTitle>
+<PageTitle>Courses</PageTitle>
 
-<h1>Weather forecast</h1>
+<h1>Mina avslutade kurser</h1>
 
 
 
-@if (forecasts == null)
+@if (courses == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -16,20 +16,23 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th class="space">Date</th>
-                <th class="space">Summary</th>
-                <th class="space">Temp. (C)</th>
+                <th class="space">Kurskod</th>
+                <th class="space">Namn</th>
+                <th class="space">Progression</th>
+                <th class="space">URL</th>
+
                
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var course in courses)
             {
                 <tr>
-                    <td class="space">@forecast.Date.ToShortDateString()</td>
-                    <td class="space">@forecast.Summary</td>
-                    <td class="space">@forecast.TemperatureC</td>
-                 
+                    <td class="space">@course.Kurskod</td>
+                    <td class="space">@course.Namn</td>
+                    <td class="space">@course.Progression</td>
+                    <td class="space"> <a href="@course.URL">URL</a></td>
+                    
                 </tr>
             }
         </tbody>
@@ -39,20 +42,22 @@ else
 
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private ListOfCourses[]? courses;
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        courses = await Http.GetFromJsonAsync<ListOfCourses[]>("sample-data/Courses.json");
     }
 
-    public class WeatherForecast
+    public class ListOfCourses
     {
-        public DateTime Date { get; set; }
+        public string Kurskod { get; set; }
 
-        public int TemperatureC { get; set; }
+        public string Namn { get; set; }
 
-        public string? Summary { get; set; }
+        public string? Progression { get; set; }
+        public string URL { get; set; }
+
 
     
     }
